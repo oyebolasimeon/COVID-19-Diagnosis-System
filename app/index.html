@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>COVID-19 TRACKING SYSTEM</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" href="css/opensans-font.css">
+	<link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+	<!-- Main Style Css -->
+    <link rel="stylesheet" href="css/style.css"/>
+    <script  src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="location.js"></script>
+    
+	<script src="https://maps.google.com/maps/api/js?sensor=true"></script>
+	<!--<script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />-->
+	
+
+		<style>
+		#map {
+			width: 400px;
+			height: 400px;
+			
+		
+		}
+		[style*="--aspect-ratio"] > :first-child {
+  width: 100%;
+}
+[style*="--aspect-ratio"] > img {  
+  height: auto;
+} 
+@supports (--custom:property) {
+  [style*="--aspect-ratio"] {
+    position: relative;
+  }
+  [style*="--aspect-ratio"]::before {
+    content: "";
+    display: block;
+    padding-bottom: calc(100% / (var(--aspect-ratio)));
+  }  
+  [style*="--aspect-ratio"] > :first-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }  
+}
+	</style>
+</head>
+<body>
+	<!--<div id="map">
+		
+	</div>-->
+	<div class="page-content">
+		<div class="form-v1-content">
+			<div class="wizard-form">
+                <!--Your Form Action for the Php Start from here-->
+		        <form class="form-register" action="biodata.php" method="post">
+		        	<div id="form-total">
+		        		<!-- SECTION 1 -->
+			            <h2>
+			            	<p class="step-icon"><span>01</span></p>
+			            	<span class="step-text">Personal Infomation</span>
+			            </h2>
+			            <section>
+			                <div class="inner">
+			                	<div class="wizard-header">
+									<h3 class="heading">Personal Infomation</h3>
+									<p>Please enter your infomation and proceed to the next step by clicking on the green icon so we can confirm your status</p>
+								</div>
+								<div class="form-row">
+									<div class="form-holder">
+										<fieldset>
+											<legend>Surname</legend>
+											<input type="text" class="form-control" id="surname" name="surname" placeholder="Surname" required>
+										</fieldset>
+									</div>
+									<div class="form-holder">
+										<fieldset>
+											<legend>Othernames</legend>
+											<input type="text" class="form-control" id="lastname" name="othername" placeholder="Othernames" required>
+										</fieldset>
+									</div>
+								</div>
+                                <div class="form-row">
+									<div class="form-holder">
+										<fieldset>
+											<legend>State</legend>
+											<input type="text" class="form-control" id="State" name="state" placeholder="State" required>
+										</fieldset>
+									</div>
+									<div class="form-holder">
+										<fieldset>
+											<legend>City</legend>
+											<input type="text" class="form-control" id="City" name="city" placeholder="City" required>
+										</fieldset>
+									</div>
+								</div>
+                                 <div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>Home Address</legend>
+											<input type="text" class="form-control" id="address" name="address" placeholder="Address" required>
+										</fieldset>
+									</div>
+								</div>
+                                <div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>Phone Number</legend>
+											<input type="text" class="form-control" id="phone" name="phone" placeholder="+234 801-1234-567" required>
+										</fieldset>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>National Identity Number</legend>
+											<input type="text" class="form-control" id="nin" name="nin" placeholder="NIN (optional)">
+										</fieldset>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>Email Address</legend>
+											<input type="text" name="email" id="your_email" class="form-control" pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="example@email.com" required>
+										</fieldset>
+									</div>
+								</div>
+								
+								<div class="form-row form-row-date">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>Date of Birth</legend>
+											<input type="date" name="dob" id="dob" class="form-control" required>
+										</fieldset>
+									</div>
+								</div>
+                            <div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>Gender</legend>
+											 <input type="radio" value="male" id="male" name="gender"/><label for="male" class="radio">Male</label>
+											 <input type="radio" value="female" id="female" name="gender" /><label for="female" class="radio">Female</label>
+										</fieldset>
+									</div>
+								</div>
+  <hr>
+								
+							</div>
+			            </section>
+						<!-- SECTION 2 -->
+			            <h2>
+			            	<p class="step-icon"><span>02</span></p>
+			            	<span class="step-text">Sign & Symptoms</span>
+			            </h2>
+			            <section>
+			                <div class="inner">
+			                	<div class="wizard-header">
+									<h3 class="heading">Sign & Symptoms</h3>
+									<p>Please select Yes or No where necessary and fill any other information required in order for us to confirm your status</p>
+									<p>click on the green icon to move to the next stage</p>
+								</div>
+								<hr>
+                                  <div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>1.</legend>
+                                            <p><b>Do you feel Feverish?</b></p>
+											 <input type="radio" value="yes" id="yes" name="foption"/><label for="yes" class="radio">YES</label><input type="radio" value="no" id="no" name="foption" /><label for="no" class="radio">NO</label>
+										</fieldset>
+									</div>
+								</div>
+                                 <div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>2.</legend>
+                                            <p><b>Do you experience Dry Cough?</b></p>
+											 <input type="radio" value="yes" id="coughyes" name="coption"/><label for="coughyes" class="radio">YES</label><input type="radio" value="no" id="coughno" name="coption" /><label for="coughno" class="radio">NO</label>
+										</fieldset>
+									</div>
+								</div>
+                                 <div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>3.</legend>
+                                            <p><b>Do you experience Nasal Congestion?</b></p>
+											 <input type="radio" value="yes" id="nasalyes" name="ncoption"/><label for="nasalyes" class="radio">YES</label><input type="radio" value="no" id="nasalno" name="ncoption" /><label for="nasalno" class="radio">NO</label>
+										</fieldset>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>3.</legend>
+                                            <p><b>Do you experience Shortage of Breath?</b></p>
+											 <input type="radio" value="yes" id="sbreathyes" name="sbreath"/><label for="sbreathyes" class="radio">YES</label><input type="radio" value="no" id="sbreathno" name="sbreath" /><label for="sbreathno" class="radio">NO</label>
+										</fieldset>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>3.</legend>
+                                            <p><b>Do you experience difficulty in breathing?</b></p>
+											 <input type="radio" value="yes" id="dbreathyes" name="dbreath"/><label for="dbreathyes" class="radio">YES</label><input type="radio" value="no" id="dbreathno" name="dbreath" /><label for="dbreathno" class="radio">NO</label>
+										</fieldset>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>3.</legend>
+                                            <p><b>Do you feel tired after a full night rest?</b></p>
+											 <input type="radio" value="yes" id="frestyes" name="frest"/><label for="frestyes" class="radio">YES</label><input type="radio" value="no" id="frestno" name="frest" /><label for="frestno" class="radio">NO</label>
+										</fieldset>
+									</div>
+								</div>
+                                 <div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>4.</legend>
+                                            <p><b>Have you used any medication?</b></p>
+											 <input type="radio" value="yes" id="drugyes" name="doption"/><label for="drugyes" class="radio">YES</label><input type="radio" value="no" id="drugno" name="doption" /><label for="drugno" class="radio">NO</label>
+										</fieldset>
+									</div>
+								</div>
+                                 <div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>5.</legend>
+                                            <p><b>Did you visit any Place Recently?</b></p>
+											 <input type="radio" value="yes" id="placeyes" name="voption"/><label for="placeyes" class="radio">YES</label><input type="radio" value="no" id="placeno" name="voption" /><label for="placeno" class="radio">NO</label>
+										</fieldset>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<p>List at least three Places you visited Recently</p><br>
+											<input type="text" name="pvisit" id="places" class="form-control" placeholder="....Enter here at least three Place you visited Recently" required>
+										</fieldset>
+									</div>
+								</div>
+                                <div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<p>How long have you been feeling sick?</p><br>
+											<input type="text" name="sduration" id="place" class="form-control" placeholder="....Enter here in Months - Days - Weeks" required>
+										</fieldset>
+									</div>
+								</div>
+                                <hr>
+							</div>
+			            </section>
+			            <!-- SECTION 3 -->
+			            <h2>
+			            	<p class="step-icon"><span>03</span></p>
+			            	<span class="step-text">Conclusion</span>
+			            </h2>
+			            <section>
+			                <div class="inner">
+			                	<div class="wizard-header">
+									<h3 class="heading">Covid-19 Health Precautions</h3>
+									<p>click on done below to finalize your submission</p>
+                                    <p><i>Your Health Status is our main Priority</i></p>
+
+								</div>
+								<div class="form-row">
+			                		<div class="form-holder form-holder-2">
+                                        <fieldset>
+                                        <legend>The following are the Do's and Dont to prevent Corona Virus</legend>
+                                            <ul style="list-style-type:disc;">
+                                                <li>Maintain Social Distancing</li>
+                <li>Wash your Hands Frequently.</li><li>Practice good and clean Respiratory Hygiene</li><li>Avoid Touching your Eyes, Nose and Mouth</li>
+                                                
+                                                <li>If you have fever, cough and difficulty breathing, seek medical care early</li><li>Stay informed and follow advice given by your health care provider</li>
+                 </ul>
+                                        </fieldset>
+			                			<p><b><i>Proudly Sponsored by</i></b></p>
+								<div class="form-row-total">
+									<div class="form-row">
+				                		<div class="form-holder form-holder-2 form-holder-2">
+				                			
+											<label class="bank-images label-above bank-2-label" for="bank-2">
+												<img src="images/Nigeria-Centre-for-Disease-Control.jpg" alt="bank-2">
+											</label>
+											<label class="bank-images label-above bank-3-label" for="bank-3">
+												<img src="images/who.png" alt="bank-3">
+											</label>
+				                		</div>
+				                	</div>
+								</div>
+			                		</div>
+			                	</div>
+			                	
+			                	 <div class="modal fade" id="view"> 
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                
+                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="map">
+                                        
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+			                	
+			                
+			                	<!--	<div style="--aspect-ratio: 16/9;">
+  <iframe 
+    src="https://teeyworldconfectionery.com.ng/siwes2019/location.html"
+    width="1600"
+    height="900"
+    frameborder="0"
+  >
+  </iframe>
+</div>-->
+
+ <!--   <script>
+          mapboxgl.accessToken = 'pk.eyJ1Ijoib3llYm9sYXNpbWVvbiIsImEiOiJjazlveHVqNTcwMHE3M2ZvMnE2am1xNng4In0.0juB9vShuW_3T73toq2W0A';
+          var map = new mapboxgl.Map({
+                                    container: 'map',
+                                    style: 'mapbox://styles/mapbox/streets-v11'
+                });
+</script>-->
+							</div>
+			            </section>
+
+			          
+		        	</div>
+		        	
+		        	 <!--  submit button added here-->
+			           <button type="submit" id="btnsubmit" style="/*background-color: #fff; align-content: center; color: green; */margin-right: 4px; margin-bottom: 4px; font-size: 13px !important; font-weight: 400; font-family: serif; text-transform: uppercase; letter-spacing: 2px; -webkit-border-radius: 30px; -moz-border-radius: 30px; -ms-border-radius: 30px; border-radius: 30px; -webkit-transition: 0.5s; -o-transition: 0.5s; transition: 0.5s; padding: 8px 20px;  background: #4fab40; color: #fff; border: #4fab40; width: 100%; padding: 14px 0;font-size: 16px; border: #74ebd5; -webkit-border-radius: 0; -moz-border-radius: 0; -ms-border-radius: 0; border-radius: 0; hover{background: #4fab40; color: #fff; }"><i class="zmdi zmdi-check"></i>done</button>
+		        
+              <!--Your Form Stop here-->  </form>
+			</div>
+		</div>
+		
+	
+	</div>
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/jquery.steps.js"></script>
+	<script src="js/main.js"></script>
+	<script type="text/javascript" src="symptoms.js"></script>
+	
+</body>
+</html>
